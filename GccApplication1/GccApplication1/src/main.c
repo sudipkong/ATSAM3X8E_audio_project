@@ -97,46 +97,7 @@ void configure_led(void) {
     // Set the LED initially off
     pio_clear(PIOB, LED_PIN_MASK);
 }
-//uint32_t result;
 
-//uint32_t text = "h";
-
-//const char *text = "hello world\n"; // Include the newline for formatting
-	// ADC interrupt handler
-	void ADC_Handler(void) {
-		uint32_t status = adc_get_status(ADC);
-
-		if (status & ADC_ISR_EOC0) { // Check if End of Conversion for channel 0
-			uint16_t value = adc_get_channel_value(ADC, ADC_CHANNEL_0); // Read ADC result
-			DEBUG_INFO("ADC Value: %d\n", value); // Print via USB CDC
-		}
-	}
-  //void ADC_IrqHandler(void)
-  //{
-	  //// Check the ADC conversion status
-	  //if ((adc_get_status(ADC) & ADC_ISR_DRDY) == ADC_ISR_DRDY)
-	  //{
-		  //// Get latest digital data value from ADC and can be used by application
-		  //result = adc_get_latest_value(ADC);
-		 //
-	  //}
-  //}
-  void adc_setup(void)
-  {
-	  uint32_t ADC_CLOCK = sysclk_get_main_hz()/8 ;
-	  
-	  adc_init(ADC, sysclk_get_main_hz(), ADC_FREQ_MAX, ADC_STARTUP_FAST);
-
-	  adc_configure_timing(ADC, 0, ADC_SETTLING_TIME_3, 1);
-
-	  adc_set_resolution(ADC, ADC_MR_LOWRES_BITS_12);
-
-	  adc_enable_channel(ADC, ADC_CHANNEL_5);
-
-	  adc_enable_interrupt(ADC, ADC_IER_EOC0);
-
-	  adc_configure_trigger(ADC, ADC_TRIG_SW, 0);
-  }
 
 int main (void)
 {
@@ -146,96 +107,15 @@ int main (void)
 	udc_start();
 
 delay_init();
-//pmc_enable_periph_clk(ID_PIOB);
 
-//pmc_enable_periph_clk(ID_PIOD); // clock enable for port D
-//pmc_enable_periph_clk(ID_PIOA);
-//pmc_enable_periph_clk(ID_ADC); // clock enable for ADC
-
-//uint16_t tms = 500;
-//uint32_t buff[1];
-//buff[0];
-
-//pio_set_output(PIOB, PIO_PB27, LOW, DISABLE, ENABLE);
-//pio_set_output(PIOB, PIO_PB27, HIGH, DISABLE, ENABLE);
-
-//pio_set_output(PIOD, PIO_PD8, LOW, DISABLE, ENABLE);
-
-//irq_initialize_vectors();
-//cpu_irq_enable();
-//NVIC_EnableIRQ(ADC_IRQn); 
-//adc_setup();
-//adc_start(ADC);
-//pio_configure_pin(ID_PIOD, PIO_OUTPUT_1);
 DEBUG_INFO("example, started!\n");
-//ADC_IrqHandler();
-//adc_enable_interrupt(ADC, ADC_IER_EOC0);
-//NVIC_EnableIRQ(ADC_IRQn); 
-//adc_set_trigger(ADC, ADC_TRIG_TIO_CH0);
 
-//adc_start();
-//configure_led();
 configure_timer();
 while(1)
 {
-	//just check if
 	
-		//uint16_t value = 1234;
-		//DEBUG_INFO("Value: %d\n", value); // Output: "Value: 1234"
 		DEBUG_INFO("Hello World!\n");
-	//pio_toggle_pin(PIO_PD8);
-	//delay_ms(500);
-	//adc_start(ADC);
-	//pio_set_output(PIOB, PIO_PB27, LOW, DISABLE, ENABLE);
-	//delay_ms(500);
-	//pio_set_output(PIOB, PIO_PB27, HIGH, DISABLE, ENABLE);
-	//delay_ms(500);
-	//udi_cdc_read_no_polling(buff,1);
-	//if(buff[0]==49)
-	//{
-		//tms = 100;
-		//buff[0] = 0;
-		//udi_cdc_putc(50);
-		//
-	//}
-	//pio_set_output(PIOD, PIO_PD8, LOW, DISABLE, ENABLE);
-	//delay_ms(tms);
-	//pio_set_output(PIOD, PIO_PD8, HIGH, DISABLE, ENABLE);
-	//delay_ms(tms);
 	
-	//ADC_IrqHandler();
-	//DEBUG_INFO("value: %d\n", result);
-	//char buffer1[20];
-	//sprintf(buffer1, "%d", (uint16_t)result);
-	//strcat(buffer1, "\n");
-	//for(int i=0; i<strlen(buffer1);i++)
-	//{
-		//udi_cdc_putc(buffer1[i]);
-		//
-	//}
-	//printf("hello world\n");
-	//sprintf("hello world\n");
-	
-	//sprintf(buffer1, "%d", (uint16_t)text);
-	//strcat(buffer1, "\n");
-	//for(int i=0; i<strlen(buffer1);i++)
-	//{
-		//udi_cdc_putc(buffer1[i]);
-		//
-	//}
-	
-	
-	//char buffer1[16];
-	//int len = sprintf(buffer1, "%d\n", (uint16_t)text);
-	//udi_cdc_write_buf(buffer1, len);
-
-
-
-	
-	//udi_cdc_write_buf(text, strlen(text));
-	//udi_cdc_putc(48);
-	//udi_cdc_putc(10);
-	//DEBUG_INFO("Value: %d\n", value);
 	delay_ms(500);
 	
 }
