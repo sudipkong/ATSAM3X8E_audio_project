@@ -32,8 +32,11 @@
 #include "string.h"
 #include "stdio.h"
 
- #define LED_PIN PIO_PB27
+ #define LED_PIN PIO_PD8
  #define LED_PIN_MASK (1 << 27)
+
+uint16_t count = 0; // count value inside timer
+
 
 // Define the DEBUG_INFO macro
 #define DEBUG_INFO(format, ...) \
@@ -56,8 +59,9 @@ void TC0_Handler(void) {
     uint32_t status = tc_get_status(TC0, 0);
 
     if (status & TC_SR_CPCS) { // Check if the RC Compare event occurred
-        //pio_toggle_pin(LED_PIN); // Toggle the LED state
-		DEBUG_INFO("TC0 handler\n");
+       // pio_toggle_pin(LED_PIN); // Toggle the LED state
+		//DEBUG_INFO("TC0 handler\n");
+        count++;
     }
 }
 
@@ -86,18 +90,13 @@ void configure_timer(void) {
     tc_start(TC0, 0);
 }
 
-// Configure the LED pin as output
-void configure_led(void) {
-    // Enable the PIO clock for the LED pin
-    pmc_enable_periph_clk(ID_PIOB);
-
-    // Configure the pin as an output
-    pio_configure(PIOB, PIO_OUTPUT_0, LED_PIN_MASK, PIO_DEFAULT);
-
-    // Set the LED initially off
-    pio_clear(PIOB, LED_PIN_MASK);
+void pio_setup(void)
+{
+    pmc_enable_periph_clk(ID_PIOD);
+    //pio_configure(PIOD, PIO_OUTPUT_0, LED_PIN_MASK, PIO_DEFAULT);
+    //pio_clear(PIOD, LED_PIN_MASK);
+    pio_set_output(PIOD, PIO_PD8, LOW, DISABLE, ENABLE);
 }
-
 
 int main (void)
 {
@@ -105,20 +104,22 @@ int main (void)
 	SystemInit();
 	board_init();
 	udc_start();
+    delay_init();
+    pio_setup();
 
-delay_init();
+    DEBUG_INFO("example, started!\n"); // information
 
-DEBUG_INFO("example, started!\n"); // information
+    configure_timer();
 
-configure_timer();
-while(1)
-{
+    while(1)
+    {
 	
-		DEBUG_INFO("Hello World!\n");
+		//DEBUG_INFO("Hello World!\n");
+        DEBUG_INFO("timer count value: %d \n", count);
 	
-	delay_ms(500);
+	    //delay_ms(500);
 	
-}
+    }
 
 	/* Insert application code here, after the board has been initialized. */
 }

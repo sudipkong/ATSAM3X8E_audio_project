@@ -225,7 +225,7 @@ void Dummy_Handler(void)
 
 void ADCx(void)
 {
-	ADC_IrqHandler();
+	//ADC_IrqHandler();
 	
 }
 
