@@ -108,7 +108,7 @@ int main (void)
 
 delay_init();
 
-DEBUG_INFO("example, started!\n");
+DEBUG_INFO("example, started!\n"); // information
 
 configure_timer();
 while(1)
