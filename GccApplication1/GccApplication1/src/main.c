@@ -178,7 +178,7 @@ DEBUG_INFO("example, started!\n");
 configure_timer();
 while(1)
 {
-	
+	//just check if
 	
 		//uint16_t value = 1234;
 		//DEBUG_INFO("Value: %d\n", value); // Output: "Value: 1234"
